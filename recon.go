@@ -1,7 +1,6 @@
 package recon
 
 import (
-	"fmt"
 	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
 )
@@ -11,12 +10,12 @@ import (
 // envconfig for marshalling the config types properly.
 // Params: configPath, envConfig spec address, option appName for prefix on envs
 func LoadConfig(configPath string, configSpec interface{}, appName ...string) error {
-	err := envconfig.Process(appName[0], configSpec)
+	err := godotenv.Load(configPath)
 	if err != nil {
 		return err
 	}
 
-	err = godotenv.Load(configPath)
+	err = envconfig.Process(appName[0], configSpec)
 	if err != nil {
 		return err
 	}
